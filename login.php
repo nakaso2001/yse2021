@@ -16,7 +16,7 @@
 //①名前とパスワードを入れる変数を初期化する
 $user_name="";
 $user_password="";
-$user_jender="okama";
+$user_jender="wakarann";
 /*
  * ②ログインボタンが押されたかを判定する。
  * 押されていた場合はif文の中の処理を行う
