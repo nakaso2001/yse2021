@@ -24,6 +24,7 @@ if (/* ③の処理を書く */){
 }
 
 //⑥データベースへ接続し、接続情報を変数に保存する
+$pdo = new PDO($dsn,$username,$password,$driver_options);
 
 //⑦データベースで使用する文字コードを「UTF8」にする
 
