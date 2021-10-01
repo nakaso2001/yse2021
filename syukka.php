@@ -24,7 +24,21 @@ if (/* ③の処理を書く */){
 }
 
 //⑥データベースへ接続し、接続情報を変数に保存する
-$pdo = new PDO($dsn,$username,$password,$driver_options);
+$db_connection = 'mysql';
+$db_name = 'zaiko2021_yse';
+$db_host = 'localhost';
+$db_user = 'zaiko2021_yse';
+$db_password = 'zaiko2021';
+
+$dsn = "{$db_connection}:dbname={$db_name};host={$db_host}";
+try {
+	$pdo = new PDO($dsn, $db_user, $db_password);
+	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	$pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+} catch (PDOException $e) {
+	echo "接続失敗: " . $e->getMessage();
+	exit;
+
 
 //⑦データベースで使用する文字コードを「UTF8」にする
 

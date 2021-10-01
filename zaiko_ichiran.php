@@ -16,7 +16,7 @@ require_once
 session_start();
 
 //②SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
-if (/* ②の処理を書く */login(false)){
+if (isset($_SESSION['false'])){
 	//③SESSIONの「error2」に「ログインしてください」と設定する。
 	//④ログイン画面へ遷移する。
 }
@@ -43,6 +43,7 @@ try {
 
 //⑦書籍テーブルから書籍情報を取得するSQLを実行する。また実行結果を変数に保存する
 $sql = "SELECT * FROM books WHERE zaiko2021_yse = '{$db_name}'";
+
 ?>
 
 <!DOCTYPE html>
