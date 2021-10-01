@@ -16,10 +16,10 @@ require_once
 session_start();
 
 //②SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
-//if (/* ②の処理を書く */){
+if (/* ②の処理を書く */isset){
 	//③SESSIONの「error2」に「ログインしてください」と設定する。
 	//④ログイン画面へ遷移する。
-//}
+}
 
 //⑤データベースへ接続し、接続情報を変数に保存する
 //⑥データベースで使用する文字コードを「UTF8」にする
@@ -98,22 +98,22 @@ $dsn
 						</tr>
 					</thead>
 					<tbody>
-						<?php
-						//⑩SQLの実行結果の変数から1レコードのデータを取り出す。レコードがない場合はループを終了する。
-						//while(/* ⑩の処理を書く */){
+						<?php foreach ($books as $book) : ?>
+						<?//⑩SQLの実行結果の変数から1レコードのデータを取り出す。レコードがない場合はループを終了する。
+						//while($book = $stmt->fetch(PDO::FETCH_ASSOC)){
 							//⑪extract変数を使用し、1レコードのデータを渡す。
 
-							//echo "<tr id='book'>";
-							//echo "<td id='check'><input type='checkbox' name='books[]'value="./* ⑫IDを設定する */."></td>";
-							//echo "<td id='id'>/* ⑬IDを表示する */</td>";
-							//echo "<td id='title'>/* ⑭titleを表示する */</td>";
-							//echo "<td id='author'>/* ⑮authorを表示する */</td>";
-							//echo "<td id='date'>/* ⑯salesDateを表示する */</td>";
-							//echo "<td id='price'>/* ⑰priceを表示する */</td>";
-							//echo "<td id='stock'>/* ⑱stockを表示する */</td>";
+							echo "<tr id='book'>";
+							echo "<td id='check'><input type='checkbox' name='books[]' value="./* ⑫IDを設定する */."></td>";
+							echo "<td id='id'><?= $id ?></td>";
+							echo "<td id='title'><?= $title ?></td>";
+							echo "<td id='author'><?= $author ?></td>";
+							echo "<td id='date'><?= $salseDate ?></td>";
+							echo "<td id='price'><?= $price ?></td>";
+							echo "<td id='stock'><?= $stock ?></td>";
 
-							//echo "</tr>";
-						//}
+							echo "</tr>";
+						}
 						?>
 					</tbody>
 				</table>
