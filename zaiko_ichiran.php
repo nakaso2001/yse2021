@@ -18,11 +18,11 @@ session_start();
 if (isset($_SESSION['false'])){
 	//③SESSIONの「error2」に「ログインしてください」と設定する。
 
-	//SESSION(error2)="ログインしてください"
+	//SESSION(error2)="ログインしてください";
 
 	//④ログイン画面へ遷移する。
-	
 
+	header("Location:login.php");
 
 }
 
