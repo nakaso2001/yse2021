@@ -17,8 +17,9 @@ session_start();
 //②SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
 if (isset($_SESSION['false'])){
 	//③SESSIONの「error2」に「ログインしてください」と設定する。
-	$_SESSION('error2') = 
+	SESSION(error2)="ログインしてください"
 	//④ログイン画面へ遷移する。
+	
 }
 
 //⑤データベースへ接続し、接続情報を変数に保存する
@@ -117,7 +118,7 @@ $sql = "SELECT * FROM books WHERE zaiko2021_yse = '{$db_name}'";
 							echo "<td id='stock'><?= $stock ?></td>";
 
 							echo "</tr>";
-						}
+						
 						?>
 					</tbody>
 				</table>
