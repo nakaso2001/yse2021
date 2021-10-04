@@ -17,9 +17,13 @@ session_start();
 //②SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
 if (isset($_SESSION['false'])){
 	//③SESSIONの「error2」に「ログインしてください」と設定する。
-	SESSION(error2)="ログインしてください"
+
+	//SESSION(error2)="ログインしてください"
+
 	//④ログイン画面へ遷移する。
 	
+
+
 }
 
 //⑤データベースへ接続し、接続情報を変数に保存する
