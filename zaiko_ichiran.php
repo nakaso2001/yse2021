@@ -12,16 +12,15 @@
 */
 
 //①セッションを開始する
+
 session_start();
 
 //②SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
-if (isset($_SESSION['false'])){
+if (empty($_SESSION['login']) || $_SESSION['login'] == false){
 	//③SESSIONの「error2」に「ログインしてください」と設定する。
-
+	$_SESSION['error2']="ログインしてください";
 	//SESSION(error2)="ログインしてください";
-
 	//④ログイン画面へ遷移する。
-
 	header("Location:login.php");
 
 }
@@ -69,6 +68,7 @@ $sql = "SELECT * FROM books WHERE zaiko2021_yse = '{$db_name}'";
 				<?php
 				/*
 				 * ⑧SESSIONの「success」にメッセージが設定されているかを判定する。
+				 * 
 				 * 設定されていた場合はif文の中に入る。
 				 */ 
 
@@ -109,20 +109,20 @@ $sql = "SELECT * FROM books WHERE zaiko2021_yse = '{$db_name}'";
 					<tbody>
 						<?php foreach ($books as $book) : ?>
 						<?//⑩SQLの実行結果の変数から1レコードのデータを取り出す。レコードがない場合はループを終了する。
+
 						//while($book = $stmt->fetch(PDO::FETCH_ASSOC)){
 							//⑪extract変数を使用し、1レコードのデータを渡す。
 
-							echo "<tr id='book'>";
-							echo "<td id='check'><input type='checkbox' name='books[]' value='id'></td>";
-							echo "<td id='id'><?= $id ?></td>";
-							echo "<td id='title'><?= $title ?></td>";
-							echo "<td id='author'><?= $author ?></td>";
-							echo "<td id='date'><?= $salseDate ?></td>";
-							echo "<td id='price'><?= $price ?></td>";
-							echo "<td id='stock'><?= $stock ?></td>";
-
-							echo "</tr>";
-						
+						<?php extract ?>
+							<tr id='book'>
+								 <td id='check'><input type='checkbox' name='books[]' value='id'></td>;
+								 <td id='id'><?= $id ?></td>;
+								 <td id='title'><?= $title ?></td>;
+								 <td id='author'><?= $author ?></td>;
+								 <td id='date'><?= $salseDate ?></td>;
+								 <td id='price'><?= $price ?></td>;
+								 <td id='stock'><?= $stock ?></td>;
+							</tr>
 						?>
 					</tbody>
 				</table>
