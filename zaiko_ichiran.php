@@ -32,8 +32,7 @@ $db_host = 'localhost';
 $db_port = '3306';
 $db_user = 'zaiko2021_yse';
 $db_password = '2021zaiko';
-
-$dsn = "mysql:dbname{$db_name}:dbname={$db_name};host={$db_host};charset=utf8;port={$db_port}";
+$dsn = "mysql:dbname{$db_name};host={$db_host};charset=utf8;port={$db_port}";
 try {
     $pdo = new PDO($dsn, $db_user, $db_password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -44,14 +43,15 @@ try {
 }
 
 
-
 //⑦書籍テーブルから書籍情報を取得するSQLを実行する。また実行結果を変数に保存する
-$sql = "SELECT * FROM books WHERE zaiko2021_yse = '{$db_name}'";
+$sql = "SELECT * FROM books";
+$stmt = $pdo->query($sql);
 
 ?>
 
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 	<meta charset="UTF-8">
 	<title>書籍一覧</title>
@@ -74,6 +74,7 @@ $sql = "SELECT * FROM books WHERE zaiko2021_yse = '{$db_name}'";
 
 				//if(/* ⑧の処理を書く */){
 					//⑨SESSIONの「success」の中身を表示する。
+					//$_SESSION['success']
 				//}
 				?>
 			</div>
@@ -108,22 +109,21 @@ $sql = "SELECT * FROM books WHERE zaiko2021_yse = '{$db_name}'";
 					</thead>
 					<tbody>
 						<?php foreach ($books as $book) : ?>
-						<?//⑩SQLの実行結果の変数から1レコードのデータを取り出す。レコードがない場合はループを終了する。
+						<?php//⑩SQLの実行結果の変数から1レコードのデータを取り出す。レコードがない場合はループを終了する。
+						//⑪extract変数を使用し、1レコードのデータを渡す。?>
 
-						//while($book = $stmt->fetch(PDO::FETCH_ASSOC)){
-							//⑪extract変数を使用し、1レコードのデータを渡す。
-
-						<?php extract ?>
+						<?php while($book = $stmt->fetch(PDO::FETCH_ASSOC)) : ?>
+						<?php extract($book) ?>
 							<tr id='book'>
-								 <td id='check'><input type='checkbox' name='books[]' value='id'></td>;
-								 <td id='id'><?= $id ?></td>;
-								 <td id='title'><?= $title ?></td>;
-								 <td id='author'><?= $author ?></td>;
-								 <td id='date'><?= $salseDate ?></td>;
-								 <td id='price'><?= $price ?></td>;
-								 <td id='stock'><?= $stock ?></td>;
+								 <td id='check'><input type='checkbox' name='books[]' value='id'></td>
+								 <td id='id'><?= $id ?></td>
+								 <td id='title'><?= $title ?></td>
+								 <td id='author'><?= $author ?></td>
+								 <td id='date'><?= $saleseDate ?></td>
+								 <td id='price'><?= $price ?></td>
+								 <td id='stock'><?= $stock ?></td>
 							</tr>
-						?>
+						<?php endwhile ?>
 					</tbody>
 				</table>
 			</div>
@@ -134,4 +134,3 @@ $sql = "SELECT * FROM books WHERE zaiko2021_yse = '{$db_name}'";
 	</div>
 </body>
 </html>
-</div>
