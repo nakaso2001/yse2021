@@ -29,7 +29,7 @@ $error_message2="";
  	 * ③名前とパスワードが両方とも入力されているかを判定する。
  	 * 入力されていた場合はif文の中の処理を行う。
  	 */
- 	 if (!empty($_POST["name"]&& !empty($_POST["pass"]))) {
+ 	 if (!empty($_POST["name"] && !empty($_POST["pass"]))) {
 	//④名前とパスワードにPOSTで送られてきた名前とパスワードを設定する
 	$user_name=$_POST["name"];
 	$user_password=$_POST["pass"];
