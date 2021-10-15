@@ -108,12 +108,13 @@ $stmt = $pdo->query($sql);
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach ($books as $book) : ?>
-						<?php//⑩SQLの実行結果の変数から1レコードのデータを取り出す。レコードがない場合はループを終了する。
-						//⑪extract変数を使用し、1レコードのデータを渡す。?>
-
+						
+						<?php
+						//⑩SQLの実行結果の変数から1レコードのデータを取り出す。レコードがない場合はループを終了する。
+						//⑪extract変数を使用し、1レコードのデータを渡す。
+						?>
 						<?php while($book = $stmt->fetch(PDO::FETCH_ASSOC)) : ?>
-						<?php extract($book) ?>
+							<?php extract($book) ?>
 							<tr id='book'>
 								 <td id='check'><input type='checkbox' name='books[]' value='id'></td>
 								 <td id='id'><?= $id ?></td>
