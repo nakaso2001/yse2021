@@ -43,9 +43,11 @@ try {
 //⑦データベースで使用する文字コードを「UTF8」にする
 
 //⑧POSTの「books」の値が空か判定する。空の場合はif文の中に入る。
-if(/* ⑧の処理を行う */){
+if(empty($_POST['books'])){
 	//⑨SESSIONの「success」に「出荷する商品が選択されていません」と設定する。
+	$_SESSION['succes']="出荷する商品が選択されていません";
 	//⑩在庫一覧画面へ遷移する。
+	header("Location:zaiko_ichiran.php");
 }
 
 function getId($id,$con){
@@ -89,7 +91,7 @@ function getId($id,$con){
 		 * ⑬SESSIONの「error」にメッセージが設定されているかを判定する。
 		 * 設定されていた場合はif文の中に入る。
 		 */ 
-		if(/* ⑬の処理を書く */){
+		//if(/* ⑬の処理を書く */){
 			//⑭SESSIONの「error」の中身を表示する。
 		}
 		?>
@@ -111,8 +113,9 @@ function getId($id,$con){
 				/*
 				 * ⑮POSTの「books」から一つずつ値を取り出し、変数に保存する。
 				 */
-				foreach(/* ⑮の処理を書く */){
+				foreach($_POST['books'] as $book_id){
 					// ⑯「getId」関数を呼び出し、変数に戻り値を入れる。その際引数に⑮の処理で取得した値と⑥のDBの接続情報を渡す。
+
 				?>
 				<input type="hidden" value="<?php echo	/* ⑰ ⑯の戻り値からidを取り出し、設定する */;?>" name="books[]">
 				<tr>
