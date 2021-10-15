@@ -71,11 +71,12 @@ $stmt = $pdo->query($sql);
 				 * 
 				 * 設定されていた場合はif文の中に入る。
 				 */ 
+				
 
-				//if(/* ⑧の処理を書く */){
+				if($_SESSION['success']){
 					//⑨SESSIONの「success」の中身を表示する。
-					//$_SESSION['success']
-				//}
+					$_SESSION['success'];
+				}
 				?>
 			</div>
 			
