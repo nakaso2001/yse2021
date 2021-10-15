@@ -77,10 +77,10 @@ $stmt = $pdo->query($sql);
 				 */ 
 				
 
-				// if($_SESSION['success']){
-				// 	//⑨SESSIONの「success」の中身を表示する。
-				// 	$_SESSION['success'];
-				// }
+				if($_SESSION['success']='message'){
+				 	//⑨SESSIONの「success」の中身を表示する。
+					$_SESSION['success'];
+				 }
 				?>
 			</div>
 			

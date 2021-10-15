@@ -70,7 +70,8 @@ function getId($id,$con){
 
 
 	//⑫実行した結果から1レコード取得し、returnで値を返す。
-	
+	$book = $stmt->fetch(PDO::FETCH_ASSOC);
+	return;
 }
 
 ?>
