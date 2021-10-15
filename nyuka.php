@@ -39,7 +39,7 @@ $db_port = '3306';
 $db_user = 'zaiko2021_yse';
 $db_password = '2021zaiko';
 
-$dsn = "mysql:dbname{$db_name}:dbname={$db_name};host={$db_host};charset=utf8;port={$db_port}";
+$dsn = "mysql:dbname={$db_name};host={$db_host};charset=utf8;port={$db_port}";
 try {
     $pdo = new PDO($dsn, $db_user, $db_password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
