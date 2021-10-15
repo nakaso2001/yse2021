@@ -22,12 +22,12 @@ $user_password="";
  * 押されていた場合はif文の中の処理を行う
  */
 
- if (isset($_POST["decision"])) {
+ if (isset($_POST["decision"])&& $_POST["decision"]==1) {
  	/*
  	 * ③名前とパスワードが両方とも入力されているかを判定する。
  	 * 入力されていた場合はif文の中の処理を行う。
  	 */
- 	 if (isset($user_name)&&isset($user_password)) {
+ 	 if (!empty($user_name)|| !empty($user_password)) {
 	//④名前とパスワードにPOSTで送られてきた名前とパスワードを設定する
 	$user_name=$_POST;
 	$user_password=$_POST;
