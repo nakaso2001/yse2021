@@ -16,8 +16,8 @@ session_start();
 //①名前とパスワードを入れる変数を初期化する
 $user_name="";
 $user_password="";
+$message="";
 $error_message="";
-$error_message2="";
 
 /*
  * ②ログインボタンが押されたかを判定する。
@@ -35,7 +35,7 @@ $error_message2="";
 	$user_password=$_POST["pass"];
  	 } else {
  	//⑤名前かパスワードが入力されていない場合は、「名前かパスワードが未入力です」という文言をメッセージを入れる変数に設定する
-	 $error_message="ユーザー名かパスワードが間違っています";
+	 $message="ユーザー名かパスワードが間違っています";
  	 }
  }
 //必殺ファンクション！　　アタックファンクション　ライトニングランス
@@ -51,16 +51,17 @@ $error_message2="";
  		header("Location:zaiko_ichiran.php");
  	}else{
  		//⑪名前もしくはパスワードが間違っていた場合は、「ユーザー名かパスワードが間違っています」という文言をメッセージを入れる変数に設定する
-		 $error_message="ユーザー名かパスワードが間違っています";
+		 $message="ユーザー名かパスワードが間違っています";
  	}
  }
 
 //⑫SESSIONの「error2」に値が入っているか判定する。入っていた場合はif文の中に入る
-// if (isset($_SESSION["error2"])){
+ if (isset($_SESSION["error2"])){
 //⑬SESSIONの「error2」の値をエラーメッセージを入れる変数に設定する。
-
+$error_message=$_SESSION["error2"];
 //⑭SESSIONの「error2」にnullを入れる。
-// }
+$_SESSION["error2"]=null;
+ }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -74,10 +75,10 @@ $error_message2="";
 		<h1>ログイン</h1>
 		<?php
 		//⑮エラーメッセージの変数に入っている値を表示する
-		// echo "<div id='error'>", /* ⑮の変数を書く */, "</div>";
+		 echo "<div id='error'>", $error_message, "</div>";
 		
 		// ⑯メッセージの変数に入っている値を表示する
-		// echo "<div id='msg'>", /* ⑯の変数を書く */, "</div>";
+		 echo "<div id='msg'>", $message, "</div>";
 		// ?>
 		<form action="login.php" method="post" id="log">
 			<p>
