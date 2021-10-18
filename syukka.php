@@ -33,7 +33,7 @@ $db_port = '3306';
 $db_user = 'zaiko2021_yse';
 $db_password = '2021zaiko';
 
-$dsn = "mysql:dbname{$db_name}:dbname={$db_name};host={$db_host}";
+$dsn = "mysql:dbname{$db_name};host={$db_host};charset=utf-8;port={$db_port}";
 try {
 	$pdo = new PDO($dsn, $db_user, $db_password);
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -95,8 +95,10 @@ function getId($id,$con){
 		 * ⑬SESSIONの「error」にメッセージが設定されているかを判定する。
 		 * 設定されていた場合はif文の中に入る。
 		 */ 
-		if(/* ⑬の処理を書く */){
+		if(isset($_SESSION['error'])/* ⑬の処理を書く */){
 			//⑭SESSIONの「error」の中身を表示する。
+			$_SESSION['error'] = "";
+			echo $_SESSION['error'];
 		}
 		?>
 		</div>
