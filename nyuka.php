@@ -3,7 +3,6 @@
 【機能】
 書籍の入荷数を指定する。確定ボタンを押すことで確認画面へ入荷個数を引き継いで遷移す
 る。なお、在庫数は各書籍100冊を最大在庫数とする。
-
 【エラー一覧（エラー表示：発生条件）】
 このフィールドを入力して下さい(吹き出し)：入荷個数が未入力
 最大在庫数を超える数は入力できません：現在の在庫数と入荷の個数を足した値が最大在庫数を超えている
@@ -22,7 +21,7 @@ if (session_status()== PHP_SESSION_NONE) {
 
 //③SESSIONの「login」フラグがfalseか判定する。「login」フラグがfalseの場合はif文の中に入る。
 
-if (empty(!$_SESSION['login']) || $_SESSION['login'] == false){
+if (!$_SESSION['login'] ){
 	//④SESSIONの「error2」に「ログインしてください」と設定する。
 	$_SESSION['error2']="ログインしてください";
 	//⑤ログイン画面へ遷移する。
@@ -45,8 +44,8 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 } catch (PDOException $e) {
-    echo "接続失敗: " . $e->getMessage();
-    exit;
+    echo "接続失敗: " ;
+	exit;
 }
 
 //⑧POSTの「books」の値が空か判定する。空の場合はif文の中に入る。
@@ -55,7 +54,8 @@ if(empty($_POST['books'])){
 	//⑨SESSIONの「success」に「入荷する商品が選択されていません」と設定する。
 	$_SESSION['success']="入荷する商品が選択されていません";
 	//⑩在庫一覧画面へ遷移する。
-	header("Lcation:zaiko_ichiran.php");
+	header("Location:zaiko_ichiran.php");
+	exit;
 }
 
 function getId($id,$con){
@@ -64,14 +64,9 @@ function getId($id,$con){
 	 * その際にWHERE句でメソッドの引数の$idに一致する書籍のみ取得する。
 	 * SQLの実行結果を変数に保存する。
 	 */
-	$pdo = new PDO('mysql:host=localhost;dbname=getbooks;charset=utf-8');
-	$sql="SELECT * FROM books WHERE $id = {$id} ";
-	$stmt = $db -> query($sql);
-
-
+	$sql="SELECT * FROM books WHERE id = {$id} ";
 	//⑫実行した結果から1レコード取得し、returnで値を返す。
-	$book = $stmt->fetch(PDO::FETCH_ASSOC);
-	return;
+	return  $con->query($sql)->fetch(PDO::FETCH_ASSOC);	
 }
 
 ?>
@@ -108,8 +103,8 @@ function getId($id,$con){
 			 */ 
 			if(isset($_SESSION['error'])){
 				//⑭SESSIONの「error」の中身を表示する。
-				$_SESSION['error']="";
-				echo $_SESSION['error'];
+				//$_SESSION['error']="";
+				echo '<p>'.$_SESSION['error'].'</p>';
 			}
 			?>
 			</div>
@@ -130,23 +125,22 @@ function getId($id,$con){
 					/*
 					 * ⑮POSTの「books」から一つずつ値を取り出し、変数に保存する。
 					 */
-
-
-    				//foreach($_POST){
+    					foreach($_POST["books"] as $book_id){
     					// ⑯「getId」関数を呼び出し、変数に戻り値を入れる。その際引数に⑮の処理で取得した値と⑥のDBの接続情報を渡す。
+							$book=getId($book_id,$pdo);
 					?>
-					<input type="hidden" value="<?php //echo	/* ⑰ ⑯の戻り値からidを取り出し、設定する */?>" name="books[]">
+					<input type="hidden" value="<?php echo	/* ⑰ ⑯の戻り値からidを取り出し、設定する */$book["id"];?>" name="books[]">
 					<tr>
-						<td><?php //echo	/* ⑱ ⑯の戻り値からidを取り出し、表示する */;?></td>
-						<td><?php //echo	/* ⑲ ⑯の戻り値からtitleを取り出し、表示する */;?></td>
-						<td><?php //echo	/* ⑳ ⑯の戻り値からauthorを取り出し、表示する */;?></td>
-						<td><?php //echo	/* ㉑ ⑯の戻り値からsalesDateを取り出し、表示する */;?></td>
-						<td><?php  //echo	/* ㉒ ⑯の戻り値からpriceを取り出し、表示する */;?></td>
-						<td><?php //echo	/* ㉓ ⑯の戻り値からstockを取り出し、表示する */;?></td>
+						<td><?php echo	/* ⑱ ⑯の戻り値からidを取り出し、表示する */$book["id"];?></td>
+						<td><?php echo	/* ⑲ ⑯の戻り値からtitleを取り出し、表示する */$book["title"];?></td>
+						<td><?php echo	/* ⑳ ⑯の戻り値からauthorを取り出し、表示する */$book["author"];?></td>
+						<td><?php echo	/* ㉑ ⑯の戻り値からsalesDateを取り出し、表示する */$book["salesDate"];?></td>
+						<td><?php echo	/* ㉒ ⑯の戻り値からpriceを取り出し、表示する */$book["price"];?></td>
+						<td><?php echo	/* ㉓ ⑯の戻り値からstockを取り出し、表示する */$book["stock"];?></td>
 						<td><input type='text' name='stock[]' size='5' maxlength='11' required></td>
 					</tr>
 					<?php
-					 
+					 }
 					?>
 				</table>
 				<button type="submit" id="kakutei" formmethod="POST" name="decision" value="1">確定</button>
