@@ -66,13 +66,14 @@ try {
 //⑩書籍数をカウントするための変数を宣言し、値を0で初期化する
 $count = 0;
 //⑪POSTの「books」から値を取得し、変数に設定する。
-foreach($_POST['books']){
+foreach($_POST['books'] as $count){
 	/*
 	 * ⑫POSTの「stock」について⑩の変数の値を使用して値を取り出す。
 	 * 半角数字以外の文字が設定されていないかを「is_numeric」関数を使用して確認する。
 	 * 半角数字以外の文字が入っていた場合はif文の中に入る。
 	 */
-	if (/* ⑫の処理を書く */) {
+	
+	if ($_POST['stock']) {
 		//⑬SESSIONの「error」に「数値以外が入力されています」と設定する。
 		//⑭「include」を使用して「nyuka.php」を呼び出す。
 		//⑮「exit」関数で処理を終了する。
@@ -109,8 +110,11 @@ if(/* ㉓の処理を書く */){
 	}
 
 	//㉚SESSIONの「success」に「入荷が完了しました」と設定する。
+	$_SESSION['success']="入荷が完了しました。";
 	//㉛「header」関数を使用して在庫一覧画面へ遷移する。
+	header("Location:zaiko_ichiran.php");
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
