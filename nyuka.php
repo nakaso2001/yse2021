@@ -129,14 +129,14 @@ function getId($id,$con){
     					// ⑯「getId」関数を呼び出し、変数に戻り値を入れる。その際引数に⑮の処理で取得した値と⑥のDBの接続情報を渡す。
 							$books=getId($book,$pdo);
 					?>
-					<input type="hidden" value="<?php echo	/* ⑰ ⑯の戻り値からidを取り出し、設定する */$books["id"];?>" name="books[]">
+					<input type="hidden" value="<?php echo	$books["id"];?>" name="books[]">
 					<tr>
-						<td><?php echo	/* ⑱ ⑯の戻り値からidを取り出し、表示する */$books["id"];?></td>
-						<td><?php echo	/* ⑲ ⑯の戻り値からtitleを取り出し、表示する */$books["title"];?></td>
-						<td><?php echo	/* ⑳ ⑯の戻り値からauthorを取り出し、表示する */$books["author"];?></td>
-						<td><?php echo	/* ㉑ ⑯の戻り値からsalesDateを取り出し、表示する */$books["salesDate"];?></td>
-						<td><?php echo	/* ㉒ ⑯の戻り値からpriceを取り出し、表示する */$books["price"];?></td>
-						<td><?php echo	/* ㉓ ⑯の戻り値からstockを取り出し、表示する */$books["stock"];?></td>
+						<td><?php echo	$books["id"];?></td>
+						<td><?php echo	$books["title"];?></td>
+						<td><?php echo	$books["author"];?></td>
+						<td><?php echo	$books["salesDate"];?></td>
+						<td><?php echo	$books["price"];?></td>
+						<td><?php echo	$books["stock"];?></td>
 						<td><input type='text' name='stock[]' size='5' maxlength='11' required></td>
 					</tr>
 					<?php
