@@ -33,7 +33,7 @@ $db_port = '3306';
 $db_user = 'zaiko2021_yse';
 $db_password = '2021zaiko';
 
-$dsn = "mysql:dbname{$db_name}:dbname={$db_name};host={$db_host}";
+$dsn = "mysql:dbname{$db_name};host={$db_host};charset=utf-8;port={$db_port}";
 try {
 	$pdo = new PDO($dsn, $db_user, $db_password);
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -91,12 +91,11 @@ function getId($id,$con){
 		<!-- エラーメッセージ -->
 		<div id="error">
 		<?php
-		/*
-		 * ⑬SESSIONの「error」にメッセージが設定されているかを判定する。
-		 * 設定されていた場合はif文の中に入る。
-		 */ 
-		if(/* ⑬の処理を書く */){
+		 // ⑬SESSIONの「error」にメッセージが設定されているかを判定する。定されていた場合はif文の中に入る。
+		if(isset($_SESSION['error'])){
 			//⑭SESSIONの「error」の中身を表示する。
+			$_SESSION['error'] = "";
+			echo $_SESSION['error'];
 		}
 		?>
 		</div>
@@ -117,7 +116,7 @@ function getId($id,$con){
 				/*
 				 * ⑮POSTの「books」から一つずつ値を取り出し、変数に保存する。
 				 */
-				foreach(/* ⑮の処理を書く */){
+				foreach($_POST['books'] as $key => $booksbox/* ⑮の処理を書く */){
 					// ⑯「getId」関数を呼び出し、変数に戻り値を入れる。その際引数に⑮の処理で取得した値と⑥のDBの接続情報を渡す。
 				?>
 				<input type="hidden" value="<?php echo	/* ⑰ ⑯の戻り値からidを取り出し、設定する */;?>" name="books[]">
