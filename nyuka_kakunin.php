@@ -73,47 +73,50 @@ foreach($_POST['books'] as $count){
 	 * 半角数字以外の文字が入っていた場合はif文の中に入る。
 	 */
 	
-	if (!is_numeric($_POST['stock'])) {
+	if (!is_numeric($_POST['stock'][$books])) {
 		//⑬SESSIONの「error」に「数値以外が入力されています」と設定する。
 		$_SESSION['error']="数値以外が入力されています。";
 		//⑭「include」を使用して「nyuka.php」を呼び出す。
-		include 'nyuka.php';
+		include ('nyuka.php');
 		//⑮「exit」関数で処理を終了する。
 		exit ();
 	}
 
 	//⑯「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に⑪の処理で取得した値と⑧のDBの接続情報を渡す。
-	getByid();
+	$book_count=getByid($count,$pdo);
 	//⑰ ⑯で取得した書籍の情報の「stock」と、⑩の変数を元にPOSTの「stock」から値を取り出し、足した値を変数に保存する。
-
+	$total = $book_count['stock'] + $_POST['stock']['$books'];
 	//⑱ ⑰の値が100を超えているか判定する。超えていた場合はif文の中に入る。
-
-	if($_POST['stock'] > 100){
+	if($total > 100){
 		//⑲SESSIONの「error」に「最大在庫数を超える数は入力できません」と設定する。
 		$_SESSION['error']="最大在庫数を超える数は入力出来ません";
 		//⑳「include」を使用して「nyuka.php」を呼び出す。
-		include 'nyuka.php';
+		include ('nyuka.php');
 		//㉑「exit」関数で処理を終了する。
 		exit();
 	}
 	
 	//㉒ ⑩で宣言した変数をインクリメントで値を1増やす。
+	$count++;
 }
 
 /*
  * ㉓POSTでこの画面のボタンの「add」に値が入ってるか確認する。
  * 値が入っている場合は中身に「ok」が設定されていることを確認する。
  */
-if(/* ㉓の処理を書く */){
+if(isset($_POST['add']) && $_POST['add']=="ok"){
 	//㉔書籍数をカウントするための変数を宣言し、値を0で初期化する。
-
+	$book_number = 0;
 	//㉕POSTの「books」から値を取得し、変数に設定する。
 	foreach($_POST["books"] as $book){
 		//㉖「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に㉕の処理で取得した値と⑧のDBの接続情報を渡す。
-
+		$book_count=getByid($book,$pdo);
 		//㉗ ㉖で取得した書籍の情報の「stock」と、㉔の変数を元にPOSTの「stock」から値を取り出し、足した値を変数に保存する。
+		$total = $book_count['stock'] + $_POST['stock']['$books'];
 		//㉘「updateByid」関数を呼び出す。その際に引数に㉕の処理で取得した値と⑧のDBの接続情報と㉗で計算した値を渡す。
+		updateByid($book,$pdo,$total);
 		//㉙ ㉔で宣言した変数をインクリメントで値を1増やす。
+		$book_number++;
 	}
 
 	//㉚SESSIONの「success」に「入荷が完了しました」と設定する。
@@ -148,20 +151,23 @@ if(/* ㉓の処理を書く */){
 					<tbody>
 						<?php
 						//㉜書籍数をカウントするための変数を宣言し、値を0で初期化する。
-
+						$book_number2 = 0;
 						//㉝POSTの「books」から値を取得し、変数に設定する。
-						foreach(/* ㉝の処理を書く */){
+						foreach($_POST['books'] as $book_number2){
 							//㉞「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に㉜の処理で取得した値と⑧のDBの接続情報を渡す。
+							$book_count2=getByid($book_number2,$pdo);
 						?>
 						<tr>
 							<td><?php echo	$book_data['title'];?></td>
 							<td><?php echo	$book_data['stock'];?></td>
-							<td><?php echo	/* ㊱ POSTの「stock」に設定されている値を㉜の変数を使用して呼び出す。 */;?></td>
+							<td><?php echo	/* ㊱ POSTの「stock」に設定されている値を㉜の変数を使用して呼び出す。 */
+							$_POST['stock'][$books];?></td>
 						</tr>
 						<input type="hidden" name="books[]" value="<?php echo $book; ?>">
-						<input type="hidden" name="stock[]" value='<?php echo /* ㊳POSTの「stock」に設定されている値を㉜の変数を使用して設定する。 */;?>'>
+						<input type="hidden" name="stock[]" value='<?php echo /* ㊳POSTの「stock」に設定されている値を㉜の変数を使用して設定する。 */$_POST["stock"][$books];?>'>
 						<?php
 							//㊴ ㉜で宣言した変数をインクリメントで値を1増やす。
+							$book_number2++;
 						}
 						?>
 					</tbody>
