@@ -32,15 +32,14 @@ $db_host = 'localhost';
 $db_port = '3306';
 $db_user = 'zaiko2021_yse';
 $db_password = '2021zaiko';
-
-$dsn = "mysql:dbname={$db_name};host={$db_host};charset=utf-8;port={$db_port}";
+$dsn = "mysql:dbname={$db_name};host={$db_host};charset=utf8;port={$db_port}";
 try {
-	$pdo = new PDO($dsn, $db_user, $db_password);
-	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	$pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    $pdo = new PDO($dsn, $db_user, $db_password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 } catch (PDOException $e) {
-	echo "接続失敗: " . $e->getMessage();
-	exit;
+    echo "接続失敗: " . $e->getMessage();
+    exit;
 }
 
 //⑦データベースで使用する文字コードを「UTF8」にする
@@ -87,7 +86,6 @@ function getId($id,$con){
 		</nav>
 	</div>
 
-<<<<<<< HEAD
 	<form action="syukka_kakunin.php" method="post">
 		<div id="pagebody">
 			<!-- エラーメッセージ -->
@@ -123,24 +121,6 @@ function getId($id,$con){
 						$books=getId($book,$pdo);
 					?>
 					<input type="hidden" value="<?php echo	/* ⑰ ⑯の戻り値からidを取り出し、設定する */$books["id"];?>" name="books[]">
-=======
-<form action="syukka_kakunin.php" method="post">
-	<div id="pagebody">
-		<!-- エラーメッセージ -->
-		<div id="error">
-		<?php
-		 // ⑬SESSIONの「error」にメッセージが設定されているかを判定する。定されていた場合はif文の中に入る。
-		if(isset($_SESSION['error'])){
-			//⑭SESSIONの「error」の中身を表示する。
-			//$_SESSION['error'] = "";
-			echo $_SESSION['error'];
-		}
-		?>
-		</div>
-		<div id="center">
-			<table>
-				<thead>
->>>>>>> 2487e34ebdd415e02ed2c910bf388ca82835418a
 					<tr>
 						<td><?php echo	/* ⑱ ⑯の戻り値からidを取り出し、表示する */$books["id"];?></td>
 						<td><?php echo	/* ⑲ ⑯の戻り値からtitleを取り出し、表示する */$books["title"];?></td>
