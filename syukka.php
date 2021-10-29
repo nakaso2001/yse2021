@@ -92,9 +92,9 @@ function getId($id,$con){
 			<div id="error">
 			<?php
 			// ⑬SESSIONの「error」にメッセージが設定されているかを判定する。定されていた場合はif文の中に入る。
-			if(isset($_SESSION['error'])){
+			if(isset($_SESSION["error"])){
 				//⑭SESSIONの「error」の中身を表示する。
-				$_SESSION['error'] = "";
+				$_SESSION["error"] = "";
 				echo '<p>'.$_SESSION['error'].'<p>';
 			}
 			?>

@@ -83,7 +83,7 @@ foreach($_POST["books"] as $book){
 	//⑱ ⑰の値が0未満か判定する。0未満の場合はif文の中に入る。
 	if($totals<0){
 		//⑲SESSIONの「error」に「出荷する個数が在庫数を超えています」と設定する。
-		$_SESSION["error"]="出荷する個数が在庫を超えています";
+		$_SESSION["error"]="出荷する個数が在庫を超えています。";
 		//⑳「include」を使用して「syukka.php」を呼び出す。
 		include("syukka.php");
 		//㉑「exit」関数で処理を終了する。
@@ -102,7 +102,6 @@ if(isset($_POST["add"] )&& $_POST["add"]=="ok"){
 	//㉔書籍数をカウントするための変数を宣言し、値を0で初期化する。
 	$books_number=0;
 	//㉕POSTの「books」から値を取得し、変数に設定する。
-	$books_POST=$_POST["books"];
 	foreach($_POST["books"] as $book){
 		//㉖「getByid」関数を呼び出し、変数に戻り値を入れる。その際引数に㉕の処理で取得した値と⑧のDBの接続情報を渡す。
 		$books_count=getByid($book,$pdo);
