@@ -41,7 +41,7 @@ $error_message="";
 //必殺ファンクション！　　アタックファンクション　ライトニングランス
 
 //⑦名前が入力されているか判定する。入力されていた場合はif文の中に入る
- if ($user_name&&$user_password) {
+ if ($user_name) {
  	//⑧名前に「yse」、パスワードに「2021」と設定されているか確認する。設定されていた場合はif文の中に入る
  	if ($user_name=="yse"&& $user_password=="2021"){
  		//⑨SESSIONに名前を設定し、SESSIONの「login」フラグをtrueにする
@@ -57,10 +57,10 @@ $error_message="";
 
 //⑫SESSIONの「error2」に値が入っているか判定する。入っていた場合はif文の中に入る
  if (isset($_SESSION["error2"])){
-//⑬SESSIONの「error2」の値をエラーメッセージを入れる変数に設定する。
-$error_message=$_SESSION["error2"];
-//⑭SESSIONの「error2」にnullを入れる。
-$_SESSION["error2"]=null;
+	//⑬SESSIONの「error2」の値をエラーメッセージを入れる変数に設定する。
+	$error_message=$_SESSION["error2"];
+	//⑭SESSIONの「error2」にnullを入れる。
+	$_SESSION["error2"]=null;
  }
 ?>
 <!DOCTYPE html>
@@ -75,10 +75,11 @@ $_SESSION["error2"]=null;
 		<h1>ログイン</h1>
 		<?php
 		//⑮エラーメッセージの変数に入っている値を表示する
-		 echo "<div id='error'>", $error_message, "</div>";
+		 echo "<div id='error'>",$error_message, "</div>";
 		
 		// ⑯メッセージの変数に入っている値を表示する
-		 echo "<div id='msg'>", $message, "</div>";
+		 echo "<div id='error'>",$message, "</div>";
+		 
 		// ?>
 		<form action="login.php" method="post" id="log">
 			<p>
