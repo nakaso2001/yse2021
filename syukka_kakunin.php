@@ -39,6 +39,9 @@ if (!$_SESSION["login"]){
 	//⑦ログイン画面へ遷移する。
 	header("Location:login.php");
 }
+if(!isset($_POST["books"])){
+	header("Location:zaiko_ichiran.php");
+}
 
 //⑧データベースへ接続し、接続情報を変数に保存する
 //⑨データベースで使用する文字コードを「UTF8」にする
